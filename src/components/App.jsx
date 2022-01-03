@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import axios from 'axios';
+import SearchBar from './SearchBar/SearchBar';
 import key from './key'
 import './App.css'
 
@@ -8,6 +9,7 @@ class App extends Component {
         super(props);
         this.state = {
             quoteOfDay: '',
+            quote: '',
             author: ''
         }
     }
@@ -26,6 +28,12 @@ class App extends Component {
         })
     }
 
+    getSearch = async(search) => {
+        let response = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
+        this.setState({
+            quote: response
+        })
+    }
 
     render(){
         console.log(this.state.quoteOfDay)
@@ -33,6 +41,7 @@ class App extends Component {
         <div>
             <div className="header">
                 <h1>QuoteShare----</h1>
+                <SearchBar startSearch={this.getSearch}/>
             </div>
             <div className="row">
                 <div className="col-8">
