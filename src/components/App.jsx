@@ -66,8 +66,8 @@ class App extends Component {
                     <h4>{this.state.quoteAuthor}</h4>
                 </div>
                 <div className="col-8">
-                    <button type="submit">Get a Random Quote</button>
-                    <h2>{this.state.RandomQuote}</h2>
+                <button className="randomButton" onClick={this.randomQuote}>Get a Random Quote!</button>
+                    <h2>{this.state.randomQuote}</h2>
                     <h4>{this.state.randomQuoteAuthor}</h4>
                 </div>
             </div>
