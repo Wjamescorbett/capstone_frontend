@@ -11,7 +11,9 @@ class App extends Component {
             quoteOfDay: '',
             quote: '',
             author: '',
-            quoteAuthor: ''
+            quoteAuthor: '',
+            randomQuote: '',
+            randomQuoteAuthor: ''
         }
     }
 
@@ -37,6 +39,14 @@ class App extends Component {
         })
     }
 
+    randomQuote = async() => {
+        let response = await axios.get(`https://quotes.rest/quote/random?language=en&limit=1&api_key=${key}`)
+        this.setState({
+            randomQuote: response.data.contents.quotes[0].quote,
+            randomQuoteAuthor: response.data.contents.quotes[0].author
+        })
+    }
+
     render(){
         console.log(this.state.quote)
         console.log(this.state.quoteOfDay)
@@ -54,6 +64,11 @@ class App extends Component {
                 <div className="col-8">
                     <h2>{this.state.quote}</h2>
                     <h4>{this.state.quoteAuthor}</h4>
+                </div>
+                <div className="col-8">
+                    <button type="submit">Get a Random Quote</button>
+                    <h2>{this.state.RandomQuote}</h2>
+                    <h4>{this.state.randomQuoteAuthor}</h4>
                 </div>
             </div>
         </div>
