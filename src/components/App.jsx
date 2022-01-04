@@ -10,7 +10,8 @@ class App extends Component {
         this.state = {
             quoteOfDay: '',
             quote: '',
-            author: ''
+            author: '',
+            quoteAuthor: ''
         }
     }
 
@@ -31,11 +32,13 @@ class App extends Component {
     getSearch = async(search) => {
         let response = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
         this.setState({
-            quote: response
+            quote: response.data.contents.quotes[0].quote,
+            quoteAuthor: response.data.contents.quotes[0].author
         })
     }
 
     render(){
+        console.log(this.state.quote)
         console.log(this.state.quoteOfDay)
     return(
         <div>
@@ -47,6 +50,10 @@ class App extends Component {
                 <div className="col-8">
                     <h2>{this.state.quoteOfDay}</h2>
                     <h4>{this.state.author}</h4>
+                </div>
+                <div className="col-8">
+                    <h2>{this.state.quote}</h2>
+                    <h4>{this.state.quoteAuthor}</h4>
                 </div>
             </div>
         </div>
