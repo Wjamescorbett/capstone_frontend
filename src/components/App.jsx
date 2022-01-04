@@ -1,8 +1,9 @@
 import React, { Component } from 'react'; 
 import axios from 'axios';
 import SearchBar from './SearchBar/SearchBar';
-import key from './key'
-import './App.css'
+import key from './key';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
     constructor(props) {
@@ -51,21 +52,22 @@ class App extends Component {
         console.log(this.state.quote)
         console.log(this.state.quoteOfDay)
     return(
-        <div>
+        <div className="wrapper">
             <div className="header">
                 <h1>QuoteShare----</h1>
                 <SearchBar startSearch={this.getSearch}/>
             </div>
             <div className="row">
-                <div className="col-8">
+                <div className="qodBox">
+                    <h5 className="qodHeader">Here is the Quote of the Day!</h5>
                     <h2>{this.state.quoteOfDay}</h2>
                     <h4>{this.state.author}</h4>
                 </div>
-                <div className="col-8">
+                <div className="qodBox">
                     <h2>{this.state.quote}</h2>
                     <h4>{this.state.quoteAuthor}</h4>
                 </div>
-                <div className="col-8">
+                <div className="qodBox">
                 <button className="randomButton" onClick={this.randomQuote}>Get a Random Quote!</button>
                     <h2>{this.state.randomQuote}</h2>
                     <h4>{this.state.randomQuoteAuthor}</h4>

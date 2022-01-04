@@ -1,0 +1,21 @@
+.wrapper{
+    background-color: aqua;
+}
+
+.header{
+    padding-left: 100px;
+}
+
+.row{
+    padding-left: 50px;
+}
+
+.qodHeader{
+    padding-left: 150px;
+}
+
+.qodBox{
+    background-color: aquamarine;
+    border-radius: 20px;
+    border-style: solid;
+}
