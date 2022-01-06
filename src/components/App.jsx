@@ -33,7 +33,13 @@ class App extends Component {
     }
 
     getSearch = async(search) => {
+        // get response from public api
+        // get response from backend api
+        // combine arrays
+        // save arrays to state
         let response = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
+        //let quoteArray = response.data.contents.quotes
+        //push quotes from backend search into quoteArray
         this.setState({
             quote: response.data.contents.quotes[0].quote,
             quoteAuthor: response.data.contents.quotes[0].author
@@ -54,7 +60,7 @@ class App extends Component {
     return(
         <div className="wrapper">
             <div className="header">
-                <h1>QuoteShare----</h1>
+                <h1>"QuoteShare"</h1>
                 <SearchBar startSearch={this.getSearch}/>
             </div>
             <div className="row">
