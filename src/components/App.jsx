@@ -1,9 +1,17 @@
 import React, { Component } from 'react'; 
 import axios from 'axios';
-import SearchBar from './SearchBar/SearchBar';
+// import SearchBar from './SearchBar/SearchBar';
 import key from './key';
+import Login from './Login/Login';
+import Home from './Home/Home';
+import Register from './Register/Register'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+} from "react-router-dom";
 
 class App extends Component {
     constructor(props) {
@@ -54,14 +62,61 @@ class App extends Component {
         })
     }
 
-    render(){
-        console.log(this.state.quote)
-        console.log(this.state.quoteOfDay)
-    return(
+    registerUser = async (user) => {await axios ({
+        method: "POST",
+        url: 'http://127.0.0.1:8000/api/auth/register/',
+        data: {
+            username: user.username,
+            password: user.password,
+            email: user.email,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            middle_name: user.middle_name,
+            prefix: user.prefix,
+        },
+    });
+    console.log(user);
+    }
+
+    render() {
+        return (
+            <Router>
+                <Routes>
+                    <Route exact path="/" element={
+                        !localStorage.getItem('access') ?
+                            <Login 
+                                login={this.login} 
+                            />
+                        :
+                            <Home 
+                                getQuoteOfDay={this.getQuoteOfDay}
+                            />
+                        }
+                    />
+                    <Route path="/register" element={
+                        <Register 
+                            registerUser={this.registerUser}
+                        />}
+                    />          
+                </Routes>
+            </Router>
+        )
+    } 
+}
+
+export default App; 
+
+
+
+
+
+
+
+{/* <div>
         <div className="wrapper">
             <div className="header">
                 <h1>"QuoteShare"</h1>
-                <SearchBar startSearch={this.getSearch}/>
+                    <SearchBar startSearch={this.getSearch}/>
             </div>
             <div className="row">
                 <div className="qodBox">
@@ -74,14 +129,10 @@ class App extends Component {
                     <h4>{this.state.quoteAuthor}</h4>
                 </div>
                 <div className="qodBox">
-                <button className="randomButton" onClick={this.randomQuote}>Get a Random Quote!</button>
+                    <button className="randomButton" onClick={this.randomQuote}>Get a Random Quote!</button>
                     <h2>{this.state.randomQuote}</h2>
                     <h4>{this.state.randomQuoteAuthor}</h4>
                 </div>
             </div>
         </div>
-        )
-    }
-}
-
-export default App; 
+    </div> */}
