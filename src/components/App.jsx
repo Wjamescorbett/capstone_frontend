@@ -17,6 +17,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: '',
             quoteOfDay: '',
             quote: '',
             author: '',
@@ -28,8 +29,34 @@ class App extends Component {
 
 
     componentDidMount(){
+        this.addPostedQuote()
         this.getQuoteOfDay()
     }    
+
+    getUser = async () => {
+        const jwtToken = localStorage.getItem("access");
+        try {
+            var results = await axios({
+                method: 'GET',
+                url: 'http://127.0.0.1:8000/api/auth/login/',
+                headers: {Authorization: `Bearer ${jwtToken}`},
+            });
+            console.log(results.data)
+            this.setState({
+                user: results.data
+            })
+        } catch (e) {
+            console.log(e);
+        }    
+    }
+
+    addPostedQuote = async (postedQuote) => {
+        console.log(postedQuote)
+        let response = await axios.post("http://127.0.0.1:8000/api/postedQuote/postedQuote/",postedQuote, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
+
+        console.log(response.data);   
+        // this.setToggle();
+    };
 
     async getQuoteOfDay(){
         let response = await axios.get("https://quotes.rest/qod?language=en")
@@ -78,6 +105,11 @@ class App extends Component {
     console.log(user);
     }
 
+    logout = () => {
+        localStorage.clear();
+        window.location.href = "/";
+    }
+
     render() {
         return (
             <Router>
@@ -89,7 +121,11 @@ class App extends Component {
                             />
                         :
                             <Home 
-                                getQuoteOfDay={this.getQuoteOfDay}
+                                quoteOfDay={this.state.quoteOfDay}
+                                logout={this.logout}
+                                getSearch={this.getSearch}
+                                addPostedQuote={this.addPostedQuote}
+                                userId={this.user}
                             />
                         }
                     />
@@ -136,3 +172,7 @@ export default App;
             </div>
         </div>
     </div> */}
+
+
+
+

@@ -28,12 +28,11 @@ const Login = (props) => {
         navigate("/register")
     }
 
-    function handleOnClickToHome(){
-        navigate("/home")
-    }
 
     return ( 
         <div>
+            <h1>WELCOME TO QUOTE SHARE!</h1>
+            <h3>Please Sign In</h3>
             <Form className="Login" onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
                 <Form.Label>User Name</Form.Label>

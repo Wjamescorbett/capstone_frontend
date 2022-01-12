@@ -17,7 +17,7 @@ class SearchBar extends Component {
         })
     }
 
-    handleSumbit() {
+    handleSubmit() {
         console.log(this.state.search)
         this.props.startSearch(this.state.search)
         this.setState({
@@ -29,7 +29,7 @@ class SearchBar extends Component {
         return (
             <div className="searchbar">
             <input value={this.state.search} name="search" onChange={this.handleChange}></input>
-            <button className="searchbutton" onClick={() => this.handleSumbit(this.state.search)}>🔍</button>
+            <button className="searchbutton" onClick={() => this.handleSubmit(this.state.search)}>🔍</button>
             </div>
         )
     }
