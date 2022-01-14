@@ -25,6 +25,7 @@ class App extends Component {
             randomQuote: '',
             randomQuoteAuthor: ''
         }
+    console.log(this.quote)
     }
 
 
@@ -64,20 +65,6 @@ class App extends Component {
         this.setState({
             quoteOfDay: response.data.contents.quotes[0].quote,
             author: response.data.contents.quotes[0].author
-        })
-    }
-
-    getSearch = async(search) => {
-        // get response from public api
-        // get response from backend api
-        // combine arrays
-        // save arrays to state
-        let response = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
-        //let quoteArray = response.data.contents.quotes
-        //push quotes from backend search into quoteArray
-        this.setState({
-            quote: response.data.contents.quotes[0].quote,
-            quoteAuthor: response.data.contents.quotes[0].author
         })
     }
 
@@ -126,6 +113,8 @@ class App extends Component {
                                 getSearch={this.getSearch}
                                 addPostedQuote={this.addPostedQuote}
                                 userId={this.user}
+                                quote={this.quote}
+                                author={this.author}
                             />
                         }
                     />

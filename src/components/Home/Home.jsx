@@ -18,11 +18,13 @@ return (
                 user={props.userId}
                 
             />
-            <SearchBar
-                getSearch={props.getSearch}
-            />
             <h5>This is the Home Page</h5>
             <h5>QOD: {props.quoteOfDay}</h5>
+            <SearchBar
+                getSearch={props.getSearch}
+                quote={props.quote}
+                author={props.author}
+            />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}
                 user={props.userId}
