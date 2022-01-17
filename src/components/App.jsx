@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
 import axios from 'axios';
-// import SearchBar from './SearchBar/SearchBar';
 import key from './key';
 import Login from './Login/Login';
 import Home from './Home/Home';
@@ -27,18 +26,18 @@ class App extends Component {
             search: '',
             quoteSearch: [],
             authorSearch: [],
-            quote2: [],
             author2: '',
-            postedQuoteId: [],
             getSearchData: [],
             comments: [],
             getCommentData: [],
+            getApiData: [],
+            getApiDataTest: [],
         }
     }
 
     componentDidMount(){
-        this.addPostedQuote()
-        this.getQuoteOfDay()
+        // this.addPostedQuote()
+        // this.getQuoteOfDay()
     }
 
     getSearch = async(search) => {
@@ -46,27 +45,32 @@ class App extends Component {
         // get response from backend api
         // combine arrays
         // save arrays to state
-        this.state.quote2 = []
         this.state.postedQuoteId = []
         this.state.getSearchData = []
-        let response1 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
-        let response2 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
+        this.state.getApiData = []
+        await axios.get(`https://quotes.rest/quote/search?author=${search}&language=en&limit=3&api_key=${key}`).then(response => {
+            if(response.ok){
+                console.log("Fixing 404")
+            }
+            for(let index = 0; index < response.data.contents.quotes.length; index++){
+                this.state.getApiData.push(response.data.contents.quotes[index])
+            }
+        })
         await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
             for(let index = 0; index < response.data.length; index++){
                 if(response.data[index].author === search){
                     this.state.getSearchData.push(response.data[index])
-                    this.state.quote2.push(response.data[index].quoteText)
-                    this.state.postedQuoteId.push(response.data[index].id)
                 }
             }
+            console.log("this is what i need", this.state.getSearchData)
         })
-        //let quoteArray = response.data.contents.quotes
-        //push quotes from backend search into quoteArray
         this.setState({
-            quoteSearch: [...this.state.quote, ...[response1.data.contents.quotes[0].quote, response2.data.contents.quotes[0].quote]],
-            authorSearch: response1.data.contents.quotes[0].author
+            getApiData: [[this.state.getApiData[0].quote, this.state.getApiData[0].author, this.state.getApiData[0].id, this.state.getApiData[0].tags[0]], [this.state.getApiData[1].quote, this.state.getApiData[1].author, this.state.getApiData[1].id, this.state.getApiData[1].tags[1]], [this.state.getApiData[2].quote, this.state.getApiData[2].author, this.state.getApiData[2].id, this.state.getApiData[2].tags[2]]]
         })
+        console.log(this.state.getApiData)
     }
+
+    // [[1,5],[2,3],[4,6,7]]
 
     addPostedComment = async (postedComment) => {
         console.log(postedComment)
@@ -106,14 +110,14 @@ class App extends Component {
         // this.setToggle();
     };
 
-    async getQuoteOfDay(){
-        let response = await axios.get("https://quotes.rest/qod?language=en")
-        console.log(response.data.contents.quotes[0].author)
-        this.setState({
-            quoteOfDay: response.data.contents.quotes[0].quote,
-            author: response.data.contents.quotes[0].author
-        })
-    }
+    // async getQuoteOfDay(){
+    //     let response = await axios.get("https://quotes.rest/qod?language=en")
+    //     console.log(response.data.contents.quotes[0].author)
+    //     this.setState({
+    //         quoteOfDay: response.data.contents.quotes[0].quote,
+    //         author: response.data.contents.quotes[0].author
+    //     })
+    // }
 
     randomQuote = async() => {
         let response = await axios.get(`https://quotes.rest/quote/random?language=en&limit=1&api_key=${key}`)
@@ -165,13 +169,12 @@ class App extends Component {
                                 author={this.state.author}
                                 quoteSearch={this.state.quoteSearch}
                                 authorSearch={this.state.authorSearch}
-                                quote2={this.state.quote2}
                                 user={this.user}
-                                postedQuoteId={this.state.postedQuoteId}
                                 search={this.state.search}
                                 getSearchData={this.state.getSearchData}
                                 getAllComments={this.getAllComments}
                                 getCommentData={this.state.getCommentData}
+                                getApiData={this.state.getApiData}
                             />
                         }
                     />
@@ -187,38 +190,3 @@ class App extends Component {
 }
 
 export default App; 
-
-
-
-
-
-
-
-{/* <div>
-        <div className="wrapper">
-            <div className="header">
-                <h1>"QuoteShare"</h1>
-                    <SearchBar startSearch={this.getSearch}/>
-            </div>
-            <div className="row">
-                <div className="qodBox">
-                    <h5 className="qodHeader">Here is the Quote of the Day!</h5>
-                    <h2>{this.state.quoteOfDay}</h2>
-                    <h4>{this.state.author}</h4>
-                </div>
-                <div className="qodBox">
-                    <h2>{this.state.quote}</h2>
-                    <h4>{this.state.quoteAuthor}</h4>
-                </div>
-                <div className="qodBox">
-                    <button className="randomButton" onClick={this.randomQuote}>Get a Random Quote!</button>
-                    <h2>{this.state.randomQuote}</h2>
-                    <h4>{this.state.randomQuoteAuthor}</h4>
-                </div>
-            </div>
-        </div>
-    </div> */}
-
-
-
-

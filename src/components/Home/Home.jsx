@@ -32,13 +32,13 @@ return (
                 search={props.search}
                 quoteSearch={props.quoteSearch}
                 authorSearch={props.authorSearch}
-                quote2={props.quote2}
                 setState={props.setState}
                 postedQuoteId={props.postedQuoteId}
                 getSearchData={props.getSearchData}
                 addPostedComment={props.addPostedComment}
                 getAllComments={props.getAllComments}
                 getCommentData={props.getCommentData}
+                getApiData={props.getApiData}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}
