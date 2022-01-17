@@ -20,6 +20,7 @@ class SearchBar extends Component {
     handleSubmit() {
         console.log(this.state.search)
         this.props.getSearch(this.state.search)
+        this.props.getAllComments()
         this.setState({
             search: ''
         })

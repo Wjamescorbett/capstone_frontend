@@ -22,6 +22,7 @@ return (
             <h5>QOD: {props.quoteOfDay}</h5>
             <SearchBar
                 getSearch={props.getSearch}
+                getAllComments={props.getAllComments}
             />
             <HomeBody 
                 getSearch={props.getSearch}
@@ -35,6 +36,9 @@ return (
                 setState={props.setState}
                 postedQuoteId={props.postedQuoteId}
                 getSearchData={props.getSearchData}
+                addPostedComment={props.addPostedComment}
+                getAllComments={props.getAllComments}
+                getCommentData={props.getCommentData}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}

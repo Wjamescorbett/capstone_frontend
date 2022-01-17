@@ -8,7 +8,7 @@ const PostQuote = (props) => {
   const [quoteText, setQuoteText] = useState();
   const [author, setAuthor] = useState();
   const [keyWord, setKeyword] = useState();
-  const [comments,setComments] = useState();
+  const comments = 'test';
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -48,10 +48,6 @@ const PostQuote = (props) => {
             <Form.Group className="mb-3" controlId="postedQuoteKeyword">
               <Form.Label>Keyword</Form.Label>
               <Form.Control type="text" onChange={e => setKeyword(e.target.value)} required/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="postedComments">
-              <Form.Label>Comments</Form.Label>
-              <Form.Control type="text" onChange={e => setComments(e.target.value)} required/>
             </Form.Group>
           </Form>
         </Modal.Body>

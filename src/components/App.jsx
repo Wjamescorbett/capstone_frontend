@@ -31,7 +31,14 @@ class App extends Component {
             author2: '',
             postedQuoteId: [],
             getSearchData: [],
+            comments: [],
+            getCommentData: [],
         }
+    }
+
+    componentDidMount(){
+        this.addPostedQuote()
+        this.getQuoteOfDay()
     }
 
     getSearch = async(search) => {
@@ -41,9 +48,10 @@ class App extends Component {
         // save arrays to state
         this.state.quote2 = []
         this.state.postedQuoteId = []
+        this.state.getSearchData = []
         let response1 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
         let response2 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
-        let response3 = await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
+        await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
             for(let index = 0; index < response.data.length; index++){
                 if(response.data[index].author === search){
                     this.state.getSearchData.push(response.data[index])
@@ -52,7 +60,6 @@ class App extends Component {
                 }
             }
         })
-        console.log(this.state.getSearchData)
         //let quoteArray = response.data.contents.quotes
         //push quotes from backend search into quoteArray
         this.setState({
@@ -63,14 +70,19 @@ class App extends Component {
 
     addPostedComment = async (postedComment) => {
         console.log(postedComment)
-        let response = await axios.post("http://127.0.0.1:8000/api/postedComment/postedComment/", postedComment, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
-        console.log(response)
+        await axios.post("http://127.0.0.1:8000/api/postedComment/postedComment/", postedComment, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
     }
 
-    componentDidMount(){
-        this.addPostedQuote()
-        this.getQuoteOfDay()
-    }    
+    getAllComments = async () => {
+        this.state.getCommentData = []
+        await axios.get('http://127.0.0.1:8000/api/postedComment/allComments/').then(response => {
+            for(let index = 0; index < response.data.length; index++){
+                this.state.getCommentData.push(response.data[index])
+            }
+        })
+        console.log(this.getCommentData)
+    }
+
 
     getUser = async () => {
         const jwtToken = localStorage.getItem("access");
@@ -158,6 +170,8 @@ class App extends Component {
                                 postedQuoteId={this.state.postedQuoteId}
                                 search={this.state.search}
                                 getSearchData={this.state.getSearchData}
+                                getAllComments={this.getAllComments}
+                                getCommentData={this.state.getCommentData}
                             />
                         }
                     />

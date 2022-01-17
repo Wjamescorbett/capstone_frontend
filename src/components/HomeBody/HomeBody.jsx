@@ -21,11 +21,23 @@ const HomeBody = (props) => {
                     <h5>{e.quoteText}</h5>
                     <h5>{e.author}</h5>
                     <h5>Comment Id: {e.id}</h5>
+                    {console.log(props.getCommentData)}
                     <PostComment 
                         addPostedComment={props.addPostedComment}
-                        getPostedQuotes={props.getPostedQuotesForCommenting}
-                        postedQuoteId={props.postedQuoteId}
+                        currentQuoteData={e}
                     />
+                    {props.getCommentData.map((q) => {
+                        if(q.postedQuote === e.id){
+                            console.log("We got here -----------------------------")
+                            return(
+                                <div>
+                                    <h5>"Comments Go Here"</h5>
+                                    <h5>{q.commentText}</h5>
+                                </div>
+                            )
+                        }
+                    }
+                    )}
                 </div>
             )
         }
