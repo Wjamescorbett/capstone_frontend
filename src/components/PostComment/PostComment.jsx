@@ -15,7 +15,6 @@ const PostComment = (props) => {
     console.log(jwtDecode(localStorage.getItem('access')))
     console.log()
     let postedComment = {
-    postedQuote: postedQuote,
     commentText: commentText,
     user:jwtDecode(localStorage.getItem('access')).user_id
     }
@@ -36,7 +35,7 @@ const PostComment = (props) => {
           <Form>
             <Form.Group className="mb-3" controlId="postedQuoteText">
               <Form.Label>This needs to be attatched to a specific quote:</Form.Label>
-              <Form.Control type="text" onChange={e => setPostedQuote(e.target.value)} required/>
+              <Form.Control type="text" setPostedQuote={props.postedQuoteId} required/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="postedQuoteAuthor">
               <Form.Label>Comment Text:</Form.Label>

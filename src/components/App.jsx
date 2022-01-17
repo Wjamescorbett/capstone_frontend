@@ -23,11 +23,49 @@ class App extends Component {
             author: '',
             quoteAuthor: '',
             randomQuote: '',
-            randomQuoteAuthor: ''
+            randomQuoteAuthor: '',
+            search: '',
+            quoteSearch: [],
+            authorSearch: [],
+            quote2: [],
+            author2: '',
+            postedQuoteId: [],
+            getSearchData: [],
         }
-    console.log(this.quote)
     }
 
+    getSearch = async(search) => {
+        // get response from public api
+        // get response from backend api
+        // combine arrays
+        // save arrays to state
+        this.state.quote2 = []
+        this.state.postedQuoteId = []
+        let response1 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
+        let response2 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
+        let response3 = await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
+            for(let index = 0; index < response.data.length; index++){
+                if(response.data[index].author === search){
+                    this.state.getSearchData.push(response.data[index])
+                    this.state.quote2.push(response.data[index].quoteText)
+                    this.state.postedQuoteId.push(response.data[index].id)
+                }
+            }
+        })
+        console.log(this.state.getSearchData)
+        //let quoteArray = response.data.contents.quotes
+        //push quotes from backend search into quoteArray
+        this.setState({
+            quoteSearch: [...this.state.quote, ...[response1.data.contents.quotes[0].quote, response2.data.contents.quotes[0].quote]],
+            authorSearch: response1.data.contents.quotes[0].author
+        })
+    }
+
+    addPostedComment = async (postedComment) => {
+        console.log(postedComment)
+        let response = await axios.post("http://127.0.0.1:8000/api/postedComment/postedComment/", postedComment, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
+        console.log(response)
+    }
 
     componentDidMount(){
         this.addPostedQuote()
@@ -109,9 +147,17 @@ class App extends Component {
                                 logout={this.logout}
                                 getSearch={this.getSearch}
                                 addPostedQuote={this.addPostedQuote}
-                                userId={this.user}
-                                quote={this.quote}
-                                author={this.author}
+                                addPostedComment={this.addPostedComment}
+                                userId={this.state.user}
+                                quote={this.state.quote}
+                                author={this.state.author}
+                                quoteSearch={this.state.quoteSearch}
+                                authorSearch={this.state.authorSearch}
+                                quote2={this.state.quote2}
+                                user={this.user}
+                                postedQuoteId={this.state.postedQuoteId}
+                                search={this.state.search}
+                                getSearchData={this.state.getSearchData}
                             />
                         }
                     />

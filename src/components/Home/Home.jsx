@@ -3,7 +3,7 @@ import {useState , useEffect} from "react";
 import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import PostQuote from "../PostQuote/PostQuote";
-import PostComment from "../PostComment/PostComment";
+import HomeBody from "../HomeBody/HomeBody";
 import axios from "axios";
 
 
@@ -17,15 +17,24 @@ return (
             <NavBar
                 logout={props.logout}
                 user={props.userId}
-                
             />
             <h5>This is the Home Page</h5>
             <h5>QOD: {props.quoteOfDay}</h5>
             <SearchBar
                 getSearch={props.getSearch}
+            />
+            <HomeBody 
+                getSearch={props.getSearch}
                 quote={props.quote}
                 author={props.author}
                 user={props.userId}
+                search={props.search}
+                quoteSearch={props.quoteSearch}
+                authorSearch={props.authorSearch}
+                quote2={props.quote2}
+                setState={props.setState}
+                postedQuoteId={props.postedQuoteId}
+                getSearchData={props.getSearchData}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}
