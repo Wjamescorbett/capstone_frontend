@@ -3,11 +3,12 @@ import {useState , useEffect} from "react";
 import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import PostQuote from "../PostQuote/PostQuote";
+import PostComment from "../PostComment/PostComment";
 import axios from "axios";
 
 
 const Home = (props) => {
-  
+
 
 
 return (
@@ -24,6 +25,7 @@ return (
                 getSearch={props.getSearch}
                 quote={props.quote}
                 author={props.author}
+                user={props.userId}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}

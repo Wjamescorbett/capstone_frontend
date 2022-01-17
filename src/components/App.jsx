@@ -52,10 +52,7 @@ class App extends Component {
     }
 
     addPostedQuote = async (postedQuote) => {
-        console.log(postedQuote)
-        let response = await axios.post("http://127.0.0.1:8000/api/postedQuote/postedQuote/",postedQuote, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
-
-        console.log(response.data);   
+        await axios.post("http://127.0.0.1:8000/api/postedQuote/postedQuote/", postedQuote, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
         // this.setToggle();
     };
 

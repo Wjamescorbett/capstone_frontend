@@ -3,6 +3,7 @@ import axios from 'axios';
 import key from '../key';
 import './SearchBar.css';
 import {Form, Button, Container} from 'react-bootstrap';
+import PostComment from '../PostComment/PostComment';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class SearchBar extends Component {
             quote: [],
             author: [],
             quote2: [],
-            author2: ''
+            author2: '',
+            postedQuoteId: '',
         }
     }
 
@@ -21,13 +23,14 @@ class SearchBar extends Component {
         // get response from backend api
         // combine arrays
         // save arrays to state
+        this.state.quote2 = []
         let response = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
         let response2 = await axios.get(`https://quotes.rest/quote/search?author=${search}&api_key=${key}`)
         await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
             for(let index = 0; index < response.data.length; index++){
                 if(response.data[index].author === search){
-                    console.log("ThisRan")
                     this.state.quote2.push(response.data[index].quoteText)
+
                 }
             }
         })
@@ -39,6 +42,20 @@ class SearchBar extends Component {
         })
         console.log(this.state.quote2)
     }
+
+    addPostedComment = async (postedComment) => {
+        console.log(postedComment)
+        let response = await axios.post("http://127.0.0.1:8000/api/postedComment/postedComment/", postedComment, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
+        console.log(response)
+    }
+
+    getAllPosted
+    
+    // getPostedQuotesForCommenting = async(quoteID) => {
+    // await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
+    //     if()
+    // })
+    // }
 
     handleChange = (event) => {
         this.setState({
@@ -60,9 +77,9 @@ class SearchBar extends Component {
             <div className="searchbar">
             <div>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Label>Backend Quotes</Form.Label>
-                    <Form.Control name="search" value={this.state.search} onChange={this.handleChange}></Form.Control>
-                    <Button type="submit" className="searchButton">🔍</Button>
+                    <Form.Label></Form.Label>
+                    <Form.Control name="search" value={this.state.search} onChange={this.handleChange}>
+                    </Form.Control><Button type="submit" className="searchButton">🔍</Button>
                 </Form>
             </div>
             {/* <input value={this.state.search} name="search" onChange={this.handleChange}></input>
@@ -73,14 +90,20 @@ class SearchBar extends Component {
             <h5>{this.state.quote[1]}</h5>
             <h5>{this.state.author}</h5>
             ------------------------------------------
-            <h5>"TEST GOES HERE"</h5>
             {this.state.quote2.map(e => {
                 return (
-                    <h5>{e}</h5>
+                    <div>
+                        <h5>{e}</h5>
+                        <h5>{this.state.author}</h5>
+                        <PostComment 
+                            addPostedComment={this.addPostedComment}
+                            getPostedQuotes={this.getPostedQuotesForCommenting}
+                            postedQuoteId={this.state.postedQuoteId}
+                        />
+                    </div>
                 )
             }
             )}
-            <h5>"Under Text Quote"</h5>
             </div>
         )
     }

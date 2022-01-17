@@ -40,7 +40,7 @@ const Login = (props) => {
                 </Form.Group>   
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control onChange={e => setUserPassword(e.target.value)} type="text" required />
+                    <Form.Control onChange={e => setUserPassword(e.target.value)} type="password" required />
                 </Form.Group>
                 <Button type="submit">Submit</Button>
             </Form>
