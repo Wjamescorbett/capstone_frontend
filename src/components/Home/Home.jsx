@@ -4,12 +4,11 @@ import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import PostQuote from "../PostQuote/PostQuote";
 import HomeBody from "../HomeBody/HomeBody";
+import LoadThreeMore from "../LoadThreeMore/LoadThreeMore";
 import axios from "axios";
 
 
 const Home = (props) => {
-
-
 
 return (
     <div>
@@ -23,9 +22,9 @@ return (
             <SearchBar
                 getSearch={props.getSearch}
                 getAllComments={props.getAllComments}
+                loadThreeMore={props.loadThreeMore}
             />
-            <HomeBody 
-                getSearch={props.getSearch}
+            <HomeBody
                 quote={props.quote}
                 author={props.author}
                 user={props.userId}
@@ -39,6 +38,9 @@ return (
                 getAllComments={props.getAllComments}
                 getCommentData={props.getCommentData}
                 getApiData={props.getApiData}
+                addApiComment={props.addApiComment}
+                getAllApiComments={props.getAllApiComments}
+                loadThreeMore={props.loadThreeMore}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}

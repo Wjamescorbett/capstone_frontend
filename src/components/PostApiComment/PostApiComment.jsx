@@ -4,8 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import jwtDecode from "jwt-decode";
 
-const PostComment = (props) => {
-  const postedQuote = props.currentQuoteData[2]
+const PostApiComment = (props) => {
+  const apiQuote = props.currentApiQuoteData[2];
   const [commentText, setCommentText] = useState();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -13,16 +13,21 @@ const PostComment = (props) => {
 
   const  handleOnClick = () => {
     console.log(jwtDecode(localStorage.getItem('access')))
-    console.log(props.currentQuoteData)
-    let postedComment = {
-      postedQuote: postedQuote,
+    console.log(props.currentApiQuoteData)
+    let apiComment = {
+      apiQuote: apiQuote,
       commentText: commentText,
     user:jwtDecode(localStorage.getItem('access')).user_id
     }
-    props.addPostedComment(postedComment);
+    props.addApiComment(apiComment);
     handleClose();
   }
 
+
+                        // <h5>Quote Text: {c[0]}</h5>
+                        // <h5>Author: {c[1]}</h5>
+                        // <h5>Quote Id: {c[2]}</h5>
+                        // <h5>Key Word: {c[3]}</h5>
 
   return (
     <div>
@@ -54,4 +59,4 @@ const PostComment = (props) => {
   );
 };
 
-export default PostComment;
+export default PostApiComment;
