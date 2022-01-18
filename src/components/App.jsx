@@ -95,7 +95,7 @@ class App extends Component {
                 })
             }
         holderForSearchData = []
-        this.loadThreeMore()
+        // this.loadThreeMore()
     })
     }
     
@@ -111,7 +111,7 @@ class App extends Component {
                 }
             }
         })
-        this.componentDidMount()
+        // this.componentDidMount()
     }
 
 
@@ -178,14 +178,27 @@ class App extends Component {
         // this.setToggle();
     };
 
-    // async getQuoteOfDay(){
-    //     let response = await axios.get("https://quotes.rest/qod?language=en")
-    //     console.log(response.data.contents.quotes[0].author)
-    //     this.setState({
-    //         quoteOfDay: response.data.contents.quotes[0].quote,
-    //         author: response.data.contents.quotes[0].author
-    //     })
-    // }
+
+
+
+    // DELETE
+
+    deletePostedQuote = async (quoteId) => {
+        await axios.delete(`http://127.0.0.1:8000/api/postedQuote/deleteQuote/${quoteId}/`, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
+    }
+
+    deletePostedComment = async (commentId) => {
+        await axios.delete(`http://127.0.0.1:8000/api/postedQuote/deleteComment/${commentId}/`, {headers:{Authorization: "Bearer " + localStorage.getItem('access')}})
+    }
+
+    async getQuoteOfDay(){
+        let response = await axios.get("https://quotes.rest/qod?language=en")
+        console.log(response.data.contents.quotes[0].author)
+        this.setState({
+            quoteOfDay: response.data.contents.quotes[0].quote,
+            author: response.data.contents.quotes[0].author
+        })
+    }
 
     randomQuote = async() => {
         let response = await axios.get(`https://quotes.rest/quote/random?language=en&limit=1&api_key=${key}`)
@@ -222,6 +235,8 @@ class App extends Component {
         )
     }
 
+
+
     render() {
         return (
             <Router>
@@ -255,6 +270,8 @@ class App extends Component {
                                 loadThreeMore={this.loadThreeMore}
                                 getQuotesFromUser={this.getQuotesFromUser}
                                 allUserQuotes={this.state.allUserQuotes}
+                                deletePostedQuote={this.deletePostedQuote}
+                                deletePostedComment={this.deletePostedComment}
                             />
                         }
                     />

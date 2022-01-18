@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Register.css'
 
 
 const Register = (props) => {
@@ -45,7 +46,7 @@ const Register = (props) => {
     }
 
     return ( 
-        <div>
+        <div className="background">
             <Form className="Register" onSubmit={handleSubmit}>
                 <Form.Group controlId="firstname">
                   <Form.Label>First Name</Form.Label>

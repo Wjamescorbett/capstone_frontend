@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import Button from "react-bootstrap/Button"
+import './NavBar.css'
 
 const NavBar = (props) => {
 
@@ -12,7 +13,7 @@ const NavBar = (props) => {
   }
 
   return (
-    <div>
+    <div className="background">
       <Navbar bg="light" expand="lg">
         <Button onClick={()=>handleOnClick()}>Logout</Button>
         <Container>

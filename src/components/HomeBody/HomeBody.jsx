@@ -3,6 +3,8 @@ import {Form, Button, Container} from 'react-bootstrap';
 import PostComment from '../PostComment/PostComment';
 import PostApiComment from '../PostApiComment/PostApiComment';
 import GetUserQuotes from '../GetUserQuotes/GetUserQuotes';
+import DeleteQuote from '../DeleteQuote/DeleteQuote';
+import DeleteComment from '../DeleteComment/DeleteComment';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const HomeBody = (props) => {
@@ -36,7 +38,7 @@ const HomeBody = (props) => {
                         <h5>Quote Text: {e[0]}</h5>
                         <h5>Author: {e[1]}</h5>
                         <h5>Key Word: {e[3]}</h5>
-                        <h5>Comment Id: {e[2]}</h5>
+                        <h5>Quote Id: {e[2]}</h5>
                         <PostComment 
                             addPostedComment={props.addPostedComment}
                             currentQuoteData={e}
@@ -46,14 +48,21 @@ const HomeBody = (props) => {
                             currentQuoteData={e}
                             allUserQuotes={props.allUserQuotes}
                         />
-                        <Button variant="primary">Delete Comment</Button>
+                        <DeleteQuote
+                            deletePostedQuote={props.deletePostedQuote}
+                            currentQuoteData={e}
+                        />
                         <Button variant="primary">Favorite Quote</Button>
                         {props.getCommentData.map((q) => {
                             if(q.postedQuote === e[2]){
                                 return(
                                     <div key={Math.random()}>
-                                        <h5>"Comments Go Here"</h5>
-                                        <h5>{q.commentText}</h5>
+                                        <h5>User Comment</h5>
+                                        <h5>---{q.commentText}</h5>
+                                        <DeleteComment
+                                            currentCommentData={q}
+                                            deletePostedComment={props.deletePostedComment}
+                                        />
                                     </div>
                                 )
                             }

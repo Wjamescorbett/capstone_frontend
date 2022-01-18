@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import PostQuote from "../PostQuote/PostQuote";
 import HomeBody from "../HomeBody/HomeBody";
 import LoadThreeMore from "../LoadThreeMore/LoadThreeMore";
+import './Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import axios from "axios";
@@ -13,7 +14,7 @@ import axios from "axios";
 const Home = (props) => {
 
 return (
-    <div>
+    <div className="background">
         <div className="col-lg-9 text-center">
             <NavBar
                 logout={props.logout}
@@ -51,6 +52,8 @@ return (
                 loadThreeMore={props.loadThreeMore}
                 getQuotesFromUser={props.getQuotesFromUser}
                 allUserQuotes={props.allUserQuotes}
+                deletePostedQuote={props.deletePostedQuote}
+                deletePostedComment={props.deletePostedComment}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}

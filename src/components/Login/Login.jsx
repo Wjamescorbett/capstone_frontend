@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 
 const Login = (props) => {
     const [username, setUsername] = useState('')
@@ -30,7 +31,7 @@ const Login = (props) => {
 
 
     return ( 
-        <div>
+        <div className="background">
             <h1>WELCOME TO QUOTE SHARE!</h1>
             <h3>Please Sign In</h3>
             <Form className="Login" onSubmit={handleSubmit}>
