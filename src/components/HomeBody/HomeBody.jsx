@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Form, Button, Container} from 'react-bootstrap';
 import PostComment from '../PostComment/PostComment';
 import PostApiComment from '../PostApiComment/PostApiComment';
-import LoadThreeMore from '../LoadThreeMore/LoadThreeMore';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const HomeBody = (props) => {
@@ -11,7 +10,6 @@ const HomeBody = (props) => {
     return (
         <Container key={Math.random()}><div>
             {props.getApiData.map((c) => {
-                console.log(c)
                 return (
                     <div key={Math.random()}>
                         <h5>Quote Text: {c[0]}</h5>
@@ -27,11 +25,6 @@ const HomeBody = (props) => {
                 )
             })
             }
-            <LoadThreeMore
-                getSearch={props.getSearch}
-                getApiData={props.getApiData}
-                addApiComment={props.addApiComment}
-            />
             <h1>-------------------------------------------</h1>
             
             {props.getSearchData.map(e => {
@@ -49,7 +42,6 @@ const HomeBody = (props) => {
                         />
                         {props.getCommentData.map((q) => {
                             if(q.postedQuote === e[2]){
-                                console.log("Test")
                                 return(
                                     <div key={Math.random()}>
                                         <h5>"Comments Go Here"</h5>

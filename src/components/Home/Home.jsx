@@ -24,6 +24,11 @@ return (
                 getAllComments={props.getAllComments}
                 loadThreeMore={props.loadThreeMore}
             />
+            <LoadThreeMore
+                getApiData={props.getApiData}
+                getApiData2={props.getApiData2}
+                addApiComment={props.addApiComment}
+            />
             <HomeBody
                 quote={props.quote}
                 author={props.author}
@@ -38,6 +43,7 @@ return (
                 getAllComments={props.getAllComments}
                 getCommentData={props.getCommentData}
                 getApiData={props.getApiData}
+                getApiData2={props.getApiData2}
                 addApiComment={props.addApiComment}
                 getAllApiComments={props.getAllApiComments}
                 loadThreeMore={props.loadThreeMore}

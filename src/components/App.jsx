@@ -32,10 +32,10 @@ class App extends Component {
             comments: [],
             getCommentData: [],
             getApiData: [],
+            getApiData2: [],
             getApiDataTest: [],
             getApiCommentData: [],
         }
-        console.log("STATE", this.state.getSearchData)
     }
 
     componentDidMount(){
@@ -48,16 +48,29 @@ class App extends Component {
     getSearch = async(search) => {
         this.state.postedQuoteId = []
         this.state.getApiData = []
+        this.state.getApiData2 = []
+        try{           
+            await axios.get(`https://quotes.rest/quote/search?author=${search}&language=en&limit=3&api_key=${key}`).then(response => {
+                    for(let index = 0; index < response.data.contents.quotes.length; index++){
+                        this.state.getApiData.push(response.data.contents.quotes[index])
+                }
+                this.setState({
+                    getApiData: [[this.state.getApiData[0].quote, this.state.getApiData[0].author, this.state.getApiData[0].id, this.state.getApiData[0].tags[0]], [this.state.getApiData[1].quote, this.state.getApiData[1].author, this.state.getApiData[1].id, this.state.getApiData[1].tags[1]], [this.state.getApiData[2].quote, this.state.getApiData[2].author, this.state.getApiData[2].id, this.state.getApiData[2].tags[2]]]
+                })
+                console.log(this.state.getApiData)
+            })
+        } catch {console.log("Passed API search")}
+
         try{
-            
-        await axios.get(`https://quotes.rest/quote/search?author=${search}&language=en&limit=3&api_key=${key}`).then(response => {
+            console.log(search)
+            await axios.get(`https://quotes.rest/quote/search?author=${search}&language=en&limit=3&api_key=${key}`).then(response => {
                 for(let index = 0; index < response.data.contents.quotes.length; index++){
-                    this.state.getApiData.push(response.data.contents.quotes[index])
+                    this.state.getApiData2.push(response.data.contents.quotes[index])
             }
             this.setState({
-                getApiData: [[this.state.getApiData[0].quote, this.state.getApiData[0].author, this.state.getApiData[0].id, this.state.getApiData[0].tags[0]], [this.state.getApiData[1].quote, this.state.getApiData[1].author, this.state.getApiData[1].id, this.state.getApiData[1].tags[1]], [this.state.getApiData[2].quote, this.state.getApiData[2].author, this.state.getApiData[2].id, this.state.getApiData[2].tags[2]]]
+                getApiData2: [[this.state.getApiData2[0].quote, this.state.getApiData2[0].author, this.state.getApiData2[0].id, this.state.getApiData2[0].tags[0]], [this.state.getApiData2[1].quote, this.state.getApiData2[1].author, this.state.getApiData2[1].id, this.state.getApiData2[1].tags[1]], [this.state.getApiData2[2].quote, this.state.getApiData2[2].author, this.state.getApiData2[2].id, this.state.getApiData2[2].tags[2]]]
             })
-        })
+            })
         } catch {console.log("Passed API search")}
         
         await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
@@ -67,9 +80,7 @@ class App extends Component {
                 if(response.data[index].author === search){
                     if(response.data[index].quoteText === undefined || response.data[index].author === undefined || response.data[index].id === undefined || response.data[index].keyWord === undefined){
                         continue;
-                    } else {   holderForSearchData.push(response.data[index])
-                        console.log("SEE THIS", response.data[index])
-                    }
+                    } else {   holderForSearchData.push(response.data[index])}
                 }
             }
             try{
@@ -221,6 +232,7 @@ class App extends Component {
                                 getAllComments={this.getAllComments}
                                 getCommentData={this.state.getCommentData}
                                 getApiData={this.state.getApiData}
+                                getApiData2={this.state.getApiData2}
                                 addApiComment={this.addApiComment}
                                 getAllApiComments={this.getAllApiComments}
                                 loadThreeMore={this.loadThreeMore}
