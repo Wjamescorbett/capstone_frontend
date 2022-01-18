@@ -61,7 +61,7 @@ const LoadThreeMore = (props) => {
                     )
                     })}
                     <Button variant="primary" onClick={()=>handleShow()}>
-                        Load More Quotes!
+                        Access More Quotes
                     </Button>
             
 </div>

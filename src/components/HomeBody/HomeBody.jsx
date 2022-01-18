@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form, Button, Container} from 'react-bootstrap';
 import PostComment from '../PostComment/PostComment';
 import PostApiComment from '../PostApiComment/PostApiComment';
+import GetUserQuotes from '../GetUserQuotes/GetUserQuotes';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const HomeBody = (props) => {
@@ -39,6 +40,11 @@ const HomeBody = (props) => {
                         <PostComment 
                             addPostedComment={props.addPostedComment}
                             currentQuoteData={e}
+                        />
+                        <GetUserQuotes
+                            getQuotesFromUser={props.getQuotesFromUser}
+                            currentQuoteData={e}
+                            allUserQuotes={props.allUserQuotes}
                         />
                         {props.getCommentData.map((q) => {
                             if(q.postedQuote === e[2]){

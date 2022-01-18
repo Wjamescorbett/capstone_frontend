@@ -47,6 +47,8 @@ return (
                 addApiComment={props.addApiComment}
                 getAllApiComments={props.getAllApiComments}
                 loadThreeMore={props.loadThreeMore}
+                getQuotesFromUser={props.getQuotesFromUser}
+                allUserQuotes={props.allUserQuotes}
             />
             <PostQuote 
                 addPostedQuote={props.addPostedQuote}

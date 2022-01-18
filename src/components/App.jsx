@@ -35,6 +35,7 @@ class App extends Component {
             getApiData2: [],
             getApiDataTest: [],
             getApiCommentData: [],
+            allUserQuotes: [],
         }
     }
 
@@ -85,7 +86,7 @@ class App extends Component {
             }
             try{
                 this.setState({
-                    getSearchData: [[holderForSearchData[0].quoteText, holderForSearchData[0].author, holderForSearchData[0].id, holderForSearchData[0].keyWord], [holderForSearchData[1].quoteText, holderForSearchData[1].author, holderForSearchData[1].id, holderForSearchData[1].keyWord], [holderForSearchData[2].quoteText, holderForSearchData[2].author, holderForSearchData[2].id, holderForSearchData[2].keyWord]]
+                    getSearchData: [[holderForSearchData[0].quoteText, holderForSearchData[0].author, holderForSearchData[0].id, holderForSearchData[0].keyWord, holderForSearchData[0].user], [holderForSearchData[1].quoteText, holderForSearchData[1].author, holderForSearchData[1].id, holderForSearchData[1].keyWord, holderForSearchData[1].user], [holderForSearchData[2].quoteText, holderForSearchData[2].author, holderForSearchData[2].id, holderForSearchData[2].keyWord, holderForSearchData[2].user]]
                 })
             } catch {
                 this.setState({
@@ -97,6 +98,20 @@ class App extends Component {
     })
     }
     
+    getQuotesFromUser = async (userId) => {
+        await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
+            for(let index = 0; index < response.data.length; index++){
+                console.log("PICK ME", response.data)
+                if(response.data[index].user === userId){
+                    this.setState({
+                        allUserQuotes: this.state.allUserQuotes.push(response.data[index])
+                    })
+                }
+            }
+        })
+        console.log("CHAADD2", this.state.allUserQuotes)
+    }
+
 
 // POSTED REQUESTS
 
@@ -236,6 +251,8 @@ class App extends Component {
                                 addApiComment={this.addApiComment}
                                 getAllApiComments={this.getAllApiComments}
                                 loadThreeMore={this.loadThreeMore}
+                                getQuotesFromUser={this.getQuotesFromUser}
+                                allUserQuotes={this.state.allUserQuotes}
                             />
                         }
                     />
