@@ -5,6 +5,8 @@ import SearchBar from "../SearchBar/SearchBar";
 import PostQuote from "../PostQuote/PostQuote";
 import HomeBody from "../HomeBody/HomeBody";
 import LoadThreeMore from "../LoadThreeMore/LoadThreeMore";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import axios from "axios";
 
 
@@ -12,7 +14,7 @@ const Home = (props) => {
 
 return (
     <div>
-        <div className="homepage">
+        <div className="col-lg-9 text-center">
             <NavBar
                 logout={props.logout}
                 user={props.userId}

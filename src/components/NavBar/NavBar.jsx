@@ -21,6 +21,7 @@ const NavBar = (props) => {
           <Nav className="me-auto"/>
           </Navbar.Collapse>
         </Container>
+        <Button variant="primary">My Favorite Quotes</Button>
       </Navbar>
     </div>
   );

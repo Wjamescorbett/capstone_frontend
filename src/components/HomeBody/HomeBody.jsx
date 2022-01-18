@@ -21,7 +21,7 @@ const HomeBody = (props) => {
                         addApiComment={props.addApiComment}
                         currentApiQuoteData={c}
                         />
-                        
+                        <Button variant="primary">Favorite Quote</Button>
                     </div>
                 )
             })
@@ -46,6 +46,8 @@ const HomeBody = (props) => {
                             currentQuoteData={e}
                             allUserQuotes={props.allUserQuotes}
                         />
+                        <Button variant="primary">Delete Comment</Button>
+                        <Button variant="primary">Favorite Quote</Button>
                         {props.getCommentData.map((q) => {
                             if(q.postedQuote === e[2]){
                                 return(

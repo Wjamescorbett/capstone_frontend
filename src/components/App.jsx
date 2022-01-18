@@ -42,6 +42,7 @@ class App extends Component {
     componentDidMount(){
         // this.addPostedQuote()
         // this.getQuoteOfDay()
+        this.getQuotesFromUser()
     }
 
 
@@ -76,7 +77,7 @@ class App extends Component {
         
         await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
             let holderForSearchData = []
-            let catchFix = [["Place Holder Text", "Place Holder Author", 100000 , "Place Holder Keyword"], ["Place Holder Text", "Place Holder Author", 100000 , "Place Holder Keyword"],["Place Holder Text", "Place Holder Author", 100000 , "Place Holder Keyword"]]
+            let catchFix = [["No Quote Found", "This Author Has Less Than Three Posts", 100000 , "Key Word"], ["No Quote Found", "This Author Has Less Than Three Posts", 100000 , "Place Holder Keyword"],["No Quote Found", "This Author Has Less Than Three Posts", 100000 , "Place Holder Keyword"]]
             for(let index = 0; index < response.data.length; index++){
                 if(response.data[index].author === search){
                     if(response.data[index].quoteText === undefined || response.data[index].author === undefined || response.data[index].id === undefined || response.data[index].keyWord === undefined){
@@ -100,16 +101,17 @@ class App extends Component {
     
     getQuotesFromUser = async (userId) => {
         await axios.get('http://127.0.0.1:8000/api/postedQuote/allQuotes/').then(response => {
+            let holderForQuotesFromUser = []
             for(let index = 0; index < response.data.length; index++){
-                console.log("PICK ME", response.data)
                 if(response.data[index].user === userId){
+                    holderForQuotesFromUser.push(response.data[index])
                     this.setState({
-                        allUserQuotes: this.state.allUserQuotes.push(response.data[index])
+                        allUserQuotes: [[holderForQuotesFromUser[0]], [holderForQuotesFromUser[1]], [holderForQuotesFromUser[2]]]
                     })
                 }
             }
         })
-        console.log("CHAADD2", this.state.allUserQuotes)
+        this.componentDidMount()
     }
 
 
