@@ -15,7 +15,7 @@ const Home = (props) => {
 
 return (
     <div className="background">
-        <div className="col-lg-9 text-center">
+        <div className="background col-lg-9 text-center">
             <NavBar
                 logout={props.logout}
                 user={props.userId}

@@ -14,9 +14,9 @@ const NavBar = (props) => {
 
   return (
     <div className="background">
-      <Navbar bg="light" expand="lg">
+      <Navbar className="background" bg="light" expand="lg">
         <Button onClick={()=>handleOnClick()}>Logout</Button>
-        <Container>
+        <Container className="background">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto"/>

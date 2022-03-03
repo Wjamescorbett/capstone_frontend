@@ -35,6 +35,7 @@ const HomeBody = (props) => {
                 // console.log(props.postedQuote)
                 return (
                     <Container key={Math.random()}><div key={Math.random()}>
+                        <h5>-----------------------------</h5>
                         <h5>Quote Text: {e[0]}</h5>
                         <h5>Author: {e[1]}</h5>
                         <h5>Key Word: {e[3]}</h5>
